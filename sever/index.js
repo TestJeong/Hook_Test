@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
+const config = require("./config/key");
 const { User } = require("./models/User");
 
 //json 데이터를 분석해서 가져 올 수 있게 해준다
@@ -17,15 +18,12 @@ app.use(
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(
-    "mongodb+srv://YunJae:asdzxc56@reactsever.lisxc.mongodb.net/<dbname>?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
