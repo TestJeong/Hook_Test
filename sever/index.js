@@ -4,9 +4,11 @@ const port = 3000;
 const bodyParser = require("body-parser");
 const config = require("./config/key");
 const { User } = require("./models/User");
+const cookieParser = require("cookie-parser");
 
 //json 데이터를 분석해서 가져 올 수 있게 해준다
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 //분석해서 가져 올 수 있게 해준다
 app.use(
@@ -57,6 +59,17 @@ app.post("/login", (req, res) => {
           loginSuccess: false,
           message: "비밀번호가 틀렸습니다",
         });
+
+      // 비밀번호 까지 맞다면 토근을 생성
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).send(err);
+
+        //토큰을 저장한다
+        res
+          .cookie("x_auth", user.token)
+          .status(200)
+          .json({ loginSeccess: true, userId: user._id });
+      });
     });
   });
 });
