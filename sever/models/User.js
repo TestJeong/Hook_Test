@@ -66,7 +66,7 @@ userSchema.methods.generateToken = function (cb) {
   });
 };
 
-userSchema.statics.findByToken = function (token, cd) {
+userSchema.statics.findByToken = function (token, cb) {
   let user = this;
   jwt.verify(token, "secretToken", function (err, decoded) {
     // 유저 아디를 이용해서 유저를 찾은 다음에
