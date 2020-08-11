@@ -1,16 +1,23 @@
-import React, { createContext } from "react";
-import "./App.css";
-import Child from "./Child";
-
-export const UserContext = createContext();
-const user = { name: "YUN", age: 27 };
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LandingPage from "./components/views/LandingPage/LandingPage";
+import LoginPage from "./components/views/LoginPage/LoginPage";
+import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 
 function App() {
   return (
     <div className="App">
-      <UserContext.Provider value={user}>
-        <Child />
-      </UserContext.Provider>
+      <Router>
+        <div>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+
+            <Route exact path="/login" component={LoginPage} />
+
+            <Route exact path="/register" component={RegisterPage} />
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
