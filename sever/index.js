@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = 5000;
 const bodyParser = require("body-parser");
 const config = require("./config/key");
 const { User } = require("./models/User");
@@ -73,6 +73,10 @@ app.post("/api/users/login", (req, res) => {
       });
     });
   });
+});
+
+app.get("/api/hello", (req, res) => {
+  res.send("안녕하세요~");
 });
 
 app.get("/api/users/auth", auth, (req, res) => {
